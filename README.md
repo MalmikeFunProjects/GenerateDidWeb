@@ -1,7 +1,3 @@
-Here's your tailored and improved `README.md` based on your updated script and using **Poetry** for environment management:
-
----
-
 # DID\:web Generator for GitHub Pages
 
 This repository provides a simple yet powerful tool to generate and manage [DID documents](https://www.w3.org/TR/did-core/) using the [`did:web`](https://w3c-ccg.github.io/did-method-web/) method. It creates a new elliptic curve key pair and a corresponding DID document that you can host on GitHub Pages. It is based on this [project](https://github.com/plietar/did-web-demo)
