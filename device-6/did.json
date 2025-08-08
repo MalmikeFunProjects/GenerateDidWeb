@@ -1,0 +1,25 @@
+{
+  "did": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-6",
+  "controllerKeyId": "042b958b90c6b86b6d31c0a87ee05650625c463fb8ba76c839494fc00261a713774a9216b5e50847182e4ea89221f5ffb95a7d3ba60491e791ead1b5e0dbabdf99",
+  "keys": [
+    {
+      "type": "Secp256k1",
+      "kid": "042b958b90c6b86b6d31c0a87ee05650625c463fb8ba76c839494fc00261a713774a9216b5e50847182e4ea89221f5ffb95a7d3ba60491e791ead1b5e0dbabdf99",
+      "publicKeyHex": "042b958b90c6b86b6d31c0a87ee05650625c463fb8ba76c839494fc00261a713774a9216b5e50847182e4ea89221f5ffb95a7d3ba60491e791ead1b5e0dbabdf99",
+      "meta": {
+        "algorithms": [
+          "ES256K",
+          "ES256K-R",
+          "eth_signTransaction",
+          "eth_signTypedData",
+          "eth_signMessage",
+          "eth_rawSign"
+        ]
+      },
+      "kms": "local"
+    }
+  ],
+  "services": [],
+  "provider": "did:web",
+  "alias": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-6"
+}
