@@ -1,0 +1,25 @@
+{
+  "did": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDP",
+  "controllerKeyId": "04b2bbca5dc1195115fa9feeae25ba1373dd0b8af806b4b7393ff4d7939f32aa8ce0f51bde82cd7ab24dc32d9f19daa1274f55aa695cdd3840c8bbba502249d826",
+  "keys": [
+    {
+      "type": "Secp256k1",
+      "kid": "04b2bbca5dc1195115fa9feeae25ba1373dd0b8af806b4b7393ff4d7939f32aa8ce0f51bde82cd7ab24dc32d9f19daa1274f55aa695cdd3840c8bbba502249d826",
+      "publicKeyHex": "04b2bbca5dc1195115fa9feeae25ba1373dd0b8af806b4b7393ff4d7939f32aa8ce0f51bde82cd7ab24dc32d9f19daa1274f55aa695cdd3840c8bbba502249d826",
+      "meta": {
+        "algorithms": [
+          "ES256K",
+          "ES256K-R",
+          "eth_signTransaction",
+          "eth_signTypedData",
+          "eth_signMessage",
+          "eth_rawSign"
+        ]
+      },
+      "kms": "local"
+    }
+  ],
+  "services": [],
+  "provider": "did:web",
+  "alias": "MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDP"
+}

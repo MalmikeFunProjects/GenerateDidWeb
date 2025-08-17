@@ -1,19 +1,25 @@
 {
-  "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-1",
-  "assertionMethod": [
+  "did": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-1",
+  "controllerKeyId": "04714e4f04ee3a9d1c58cd1963fa778b5d5c94ca4cee70bfa334c61531872330019b1815793e53a758f66a2ae819b3b924e2e8290eb58decde17620787b56e88eb",
+  "provider": "did:web",
+  "services": [],
+  "keys": [
     {
-      "@context": "https://www.w3.org/ns/did/v1",
-      "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-1#5e85116cbb95535ff9cf9cda8c98aa4b7162c2c3a075f3b0ef5b94625e44f045",
-      "type": "JsonWebKey2020",
-      "controller": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-1",
-      "publicKeyJwk": {
-        "kty": "EC",
-        "crv": "P-384",
-        "x": "7zOe2WC1kyPfCWqJSQRbWVDXs89odT7TmlxwGbdii6vjhG8JJJl7AMYFmLhSXZSJ",
-        "y": "3Zl2KXrLSz9plz8ii3lgXaQD5wEZfa0l_ZTfT6aRCgpLFmz0qWZ30sL-xgMa9vsB",
-        "kid": "#5e85116cbb95535ff9cf9cda8c98aa4b7162c2c3a075f3b0ef5b94625e44f045",
-        "alg": "ES384"
+      "kid": "04714e4f04ee3a9d1c58cd1963fa778b5d5c94ca4cee70bfa334c61531872330019b1815793e53a758f66a2ae819b3b924e2e8290eb58decde17620787b56e88eb",
+      "type": "Secp256k1",
+      "kms": "local",
+      "publicKeyHex": "04714e4f04ee3a9d1c58cd1963fa778b5d5c94ca4cee70bfa334c61531872330019b1815793e53a758f66a2ae819b3b924e2e8290eb58decde17620787b56e88eb",
+      "meta": {
+        "algorithms": [
+          "ES256K",
+          "ES256K-R",
+          "eth_signTransaction",
+          "eth_signTypedData",
+          "eth_signMessage",
+          "eth_rawSign"
+        ]
       }
     }
-  ]
+  ],
+  "alias": "MalmikeFunProjects.github.io:GenerateDidWeb:device-1"
 }
