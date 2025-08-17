@@ -86,9 +86,36 @@ echo
 
 # ------------ Fetch ------------
 mkdir -p "${TARGET_DIR}"
+
+tmp="$(mktemp)"
+
 # -f: fail on HTTP error; -S: show errors; -s: silent progress
-curl -fSs -H "Host: ${HOST_ORIG}" -o "${TARGET_FILE}" "${FETCH_URL}"
-echo "Fetched -> ${TARGET_FILE}"
+curl -fsS -H "Host: ${HOST_ORIG}" -o "$tmp" "${FETCH_URL}"
+
+# choose a formatter
+if command -v jq >/dev/null 2>&1; then
+  if jq -S . < "$tmp" > "${TARGET_FILE}.tmp"; then
+    mv "${TARGET_FILE}.tmp" "${TARGET_FILE}"
+  else
+    echo "Warning: invalid JSON; saving raw" >&2
+    mv "$tmp" "${TARGET_FILE}"
+    exit 0
+  fi
+elif command -v python3 >/dev/null 2>&1; then
+  if python3 -m json.tool < "$tmp" > "${TARGET_FILE}.tmp"; then
+    mv "${TARGET_FILE}.tmp" "${TARGET_FILE}"
+  else
+    echo "Warning: invalid JSON; saving raw" >&2
+    mv "$tmp" "${TARGET_FILE}"
+  fi
+else
+  echo "Formatter not found (install jq or python3). Saving raw." >&2
+  mv "$tmp" "${TARGET_FILE}"
+fi
+
+rm -f "$tmp"
+
+echo "Saved formatted JSON -> ${TARGET_FILE}"
 
 # Optional sanity: verify the 'id' inside did.json matches the DID (with lowercase host)
 if command -v jq >/dev/null 2>&1; then
