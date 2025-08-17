@@ -1,25 +1,24 @@
 {
-  "did": "did:web:malmikefunprojects.github.io:GenerateDidWeb:device-2",
-  "controllerKeyId": "047f30e1193699c3ebca61c036f27f9a511071fc2ce561472d92ccaf80cf090514e04246f9a2b79496cc3c296e93843548e813942686d6c7452a49c6028b5b8926",
-  "provider": "did:web",
-  "services": [],
-  "keys": [
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/v2",
+    "https://w3id.org/security/suites/secp256k1recovery-2020/v2"
+  ],
+  "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-2",
+  "verificationMethod": [
     {
-      "kid": "047f30e1193699c3ebca61c036f27f9a511071fc2ce561472d92ccaf80cf090514e04246f9a2b79496cc3c296e93843548e813942686d6c7452a49c6028b5b8926",
-      "type": "Secp256k1",
-      "kms": "local",
-      "publicKeyHex": "047f30e1193699c3ebca61c036f27f9a511071fc2ce561472d92ccaf80cf090514e04246f9a2b79496cc3c296e93843548e813942686d6c7452a49c6028b5b8926",
-      "meta": {
-        "algorithms": [
-          "ES256K",
-          "ES256K-R",
-          "eth_signTransaction",
-          "eth_signTypedData",
-          "eth_signMessage",
-          "eth_rawSign"
-        ]
-      }
+      "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-2#047f30e1193699c3ebca61c036f27f9a511071fc2ce561472d92ccaf80cf090514e04246f9a2b79496cc3c296e93843548e813942686d6c7452a49c6028b5b8926",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "controller": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-2",
+      "publicKeyHex": "047f30e1193699c3ebca61c036f27f9a511071fc2ce561472d92ccaf80cf090514e04246f9a2b79496cc3c296e93843548e813942686d6c7452a49c6028b5b8926"
     }
   ],
-  "alias": "malmikefunprojects.github.io:GenerateDidWeb:device-2"
+  "authentication": [
+    "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-2#047f30e1193699c3ebca61c036f27f9a511071fc2ce561472d92ccaf80cf090514e04246f9a2b79496cc3c296e93843548e813942686d6c7452a49c6028b5b8926"
+  ],
+  "assertionMethod": [
+    "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-2#047f30e1193699c3ebca61c036f27f9a511071fc2ce561472d92ccaf80cf090514e04246f9a2b79496cc3c296e93843548e813942686d6c7452a49c6028b5b8926"
+  ],
+  "keyAgreement": [],
+  "service": []
 }

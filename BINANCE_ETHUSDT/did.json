@@ -1,25 +1,24 @@
 {
-  "did": "did:web:malmikefunprojects.github.io:GenerateDidWeb:BINANCE_ETHUSDT",
-  "controllerKeyId": "0428d4d6f458853fe43f2f11dee456f7be6f8b70ecf7d92d8b010e32756d4e786fedb3470fc3f0e2adc867ad93c45e56ce675d6adee5ab8477e9a0165a5f15f58b",
-  "keys": [
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/v2",
+    "https://w3id.org/security/suites/secp256k1recovery-2020/v2"
+  ],
+  "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDT",
+  "verificationMethod": [
     {
-      "type": "Secp256k1",
-      "kid": "0428d4d6f458853fe43f2f11dee456f7be6f8b70ecf7d92d8b010e32756d4e786fedb3470fc3f0e2adc867ad93c45e56ce675d6adee5ab8477e9a0165a5f15f58b",
-      "publicKeyHex": "0428d4d6f458853fe43f2f11dee456f7be6f8b70ecf7d92d8b010e32756d4e786fedb3470fc3f0e2adc867ad93c45e56ce675d6adee5ab8477e9a0165a5f15f58b",
-      "meta": {
-        "algorithms": [
-          "ES256K",
-          "ES256K-R",
-          "eth_signTransaction",
-          "eth_signTypedData",
-          "eth_signMessage",
-          "eth_rawSign"
-        ]
-      },
-      "kms": "local"
+      "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDT#0428d4d6f458853fe43f2f11dee456f7be6f8b70ecf7d92d8b010e32756d4e786fedb3470fc3f0e2adc867ad93c45e56ce675d6adee5ab8477e9a0165a5f15f58b",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "controller": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDT",
+      "publicKeyHex": "0428d4d6f458853fe43f2f11dee456f7be6f8b70ecf7d92d8b010e32756d4e786fedb3470fc3f0e2adc867ad93c45e56ce675d6adee5ab8477e9a0165a5f15f58b"
     }
   ],
-  "services": [],
-  "provider": "did:web",
-  "alias": "malmikefunprojects.github.io:GenerateDidWeb:BINANCE_ETHUSDT"
+  "authentication": [
+    "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDT#0428d4d6f458853fe43f2f11dee456f7be6f8b70ecf7d92d8b010e32756d4e786fedb3470fc3f0e2adc867ad93c45e56ce675d6adee5ab8477e9a0165a5f15f58b"
+  ],
+  "assertionMethod": [
+    "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDT#0428d4d6f458853fe43f2f11dee456f7be6f8b70ecf7d92d8b010e32756d4e786fedb3470fc3f0e2adc867ad93c45e56ce675d6adee5ab8477e9a0165a5f15f58b"
+  ],
+  "keyAgreement": [],
+  "service": []
 }

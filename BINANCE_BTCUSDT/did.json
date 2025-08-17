@@ -1,25 +1,24 @@
 {
-  "did": "did:web:malmikefunprojects.github.io:GenerateDidWeb:BINANCE_BTCUSDT",
-  "controllerKeyId": "04d4d083f26cb3d0b5cd6480be824035baccf15742fbad2110cae2279bb7b862755b78fefb329f2d30fb56a5ae9716b65c7d054c0b2ca29275f90c8b16ca0122c4",
-  "keys": [
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/v2",
+    "https://w3id.org/security/suites/secp256k1recovery-2020/v2"
+  ],
+  "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_BTCUSDT",
+  "verificationMethod": [
     {
-      "type": "Secp256k1",
-      "kid": "04d4d083f26cb3d0b5cd6480be824035baccf15742fbad2110cae2279bb7b862755b78fefb329f2d30fb56a5ae9716b65c7d054c0b2ca29275f90c8b16ca0122c4",
-      "publicKeyHex": "04d4d083f26cb3d0b5cd6480be824035baccf15742fbad2110cae2279bb7b862755b78fefb329f2d30fb56a5ae9716b65c7d054c0b2ca29275f90c8b16ca0122c4",
-      "meta": {
-        "algorithms": [
-          "ES256K",
-          "ES256K-R",
-          "eth_signTransaction",
-          "eth_signTypedData",
-          "eth_signMessage",
-          "eth_rawSign"
-        ]
-      },
-      "kms": "local"
+      "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_BTCUSDT#04d4d083f26cb3d0b5cd6480be824035baccf15742fbad2110cae2279bb7b862755b78fefb329f2d30fb56a5ae9716b65c7d054c0b2ca29275f90c8b16ca0122c4",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "controller": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_BTCUSDT",
+      "publicKeyHex": "04d4d083f26cb3d0b5cd6480be824035baccf15742fbad2110cae2279bb7b862755b78fefb329f2d30fb56a5ae9716b65c7d054c0b2ca29275f90c8b16ca0122c4"
     }
   ],
-  "services": [],
-  "provider": "did:web",
-  "alias": "malmikefunprojects.github.io:GenerateDidWeb:BINANCE_BTCUSDT"
+  "authentication": [
+    "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_BTCUSDT#04d4d083f26cb3d0b5cd6480be824035baccf15742fbad2110cae2279bb7b862755b78fefb329f2d30fb56a5ae9716b65c7d054c0b2ca29275f90c8b16ca0122c4"
+  ],
+  "assertionMethod": [
+    "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_BTCUSDT#04d4d083f26cb3d0b5cd6480be824035baccf15742fbad2110cae2279bb7b862755b78fefb329f2d30fb56a5ae9716b65c7d054c0b2ca29275f90c8b16ca0122c4"
+  ],
+  "keyAgreement": [],
+  "service": []
 }
