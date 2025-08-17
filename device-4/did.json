@@ -1,11 +1,11 @@
 {
-  "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-4",
+  "id": "did:web:malmikefunprojects.github.io:GenerateDidWeb:device-4",
   "assertionMethod": [
     {
       "@context": "https://www.w3.org/ns/did/v1",
-      "id": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-4#144ed3f14394a43ea0c41955eac1b41aef648936bfee41564075921f08e3ac80",
+      "id": "did:web:malmikefunprojects.github.io:GenerateDidWeb:device-4#144ed3f14394a43ea0c41955eac1b41aef648936bfee41564075921f08e3ac80",
       "type": "JsonWebKey2020",
-      "controller": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-4",
+      "controller": "did:web:malmikefunprojects.github.io:GenerateDidWeb:device-4",
       "publicKeyJwk": {
         "kty": "EC",
         "crv": "P-384",

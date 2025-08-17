@@ -1,5 +1,5 @@
 {
-  "did": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDC",
+  "did": "did:web:malmikefunprojects.github.io:GenerateDidWeb:BINANCE_ETHUSDC",
   "controllerKeyId": "046c5e20ff25dc2e1fceabc176510ca1f90daf38c7ef8cb25d9beed58bbc2f0712b73f18ad72073820e244be261ef61e583773fea10acdbbf1b7d717fd3ed98f08",
   "keys": [
     {
@@ -21,5 +21,5 @@
   ],
   "services": [],
   "provider": "did:web",
-  "alias": "MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_ETHUSDC"
+  "alias": "malmikefunprojects.github.io:GenerateDidWeb:BINANCE_ETHUSDC"
 }

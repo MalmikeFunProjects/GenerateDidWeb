@@ -1,5 +1,5 @@
 {
-  "did": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_BTCUSDC",
+  "did": "did:web:malmikefunprojects.github.io:GenerateDidWeb:BINANCE_BTCUSDC",
   "controllerKeyId": "0407ae9d2fc6161d2c7df775b518a4dbe16b4b0dc7626bf66c5eba9a46d013e891d01ab68782308d5e3598baac5a1aefd856f7295eb6e3a3bcaf802e8ef84a5495",
   "keys": [
     {
@@ -21,5 +21,5 @@
   ],
   "services": [],
   "provider": "did:web",
-  "alias": "MalmikeFunProjects.github.io:GenerateDidWeb:BINANCE_BTCUSDC"
+  "alias": "malmikefunprojects.github.io:GenerateDidWeb:BINANCE_BTCUSDC"
 }

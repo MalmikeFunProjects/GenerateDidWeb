@@ -1,5 +1,5 @@
 {
-  "did": "did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-3",
+  "did": "did:web:malmikefunprojects.github.io:GenerateDidWeb:device-3",
   "controllerKeyId": "04b696242b73545fd6e72645bd0eef8779599f984860d520d0b6ae6cc04df43646f2473211f69812f7c9ecdd57f2e012b474bd2d894e2baf285e8eef357e2fb70c",
   "keys": [
     {
@@ -21,5 +21,5 @@
   ],
   "services": [],
   "provider": "did:web",
-  "alias": "MalmikeFunProjects.github.io:GenerateDidWeb:device-3"
+  "alias": "malmikefunprojects.github.io:GenerateDidWeb:device-3"
 }
