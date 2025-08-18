@@ -13,16 +13,16 @@ fi
 
 # ------------ Config (override via env or flags) ------------
 SERVER_URL="${SERVER_URL:-http://localhost:3332}"      # your Veramo server base
-REPO_DIR="${REPO_DIR:-$(pwd)}"                         # path to the GenerateDidWeb repo root
-BRANCH="${BRANCH:-gh-pages}"                               # git branch to commit to
+BRANCH="${BRANCH:-gh-pages}"                           # git branch to commit to
+GIT_REMOTE="${GIT_REMOTE:-origin}"
 COMMIT_MSG="${COMMIT_MSG:-chore(did): update did:web document}"
 DRY_RUN="${DRY_RUN:-false}"                            # set to "true" to test without git push
 
 # ------------ Usage function ------------
 usage() {
-  echo "Usage: $0 <did:web:...> [--server URL] [--repo PATH] [--branch BRANCH] [--dry-run]"
+  echo "Usage: $0 <did:web:...> [--server URL] [--branch BRANCH] [--dry-run]"
   echo "Example:"
-  echo "  $0 'did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-4' --server http://localhost:3332 --repo ~/code/GenerateDidWeb"
+  echo "  $0 'did:web:MalmikeFunProjects.github.io:GenerateDidWeb:device-4' --server http://localhost:3332"
 }
 
 # ------------ Args ------------
@@ -32,7 +32,6 @@ DID="$1"; shift || true
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --server)  SERVER_URL="$2"; shift 2;;
-    --repo)    REPO_DIR="$2";  shift 2;;
     --branch)  BRANCH="$2";    shift 2;;
     --commit)  COMMIT_MSG="$2";shift 2;;
     --dry-run) DRY_RUN="true"; shift 1;;
@@ -47,10 +46,7 @@ if [[ "${DID}" != did:web:* ]]; then
 fi
 
 IFS=':' read -r _did _web HOST PROJECT REST <<<"${DID}"
-# When there are multiple path segments, $REST will only contain the first remainder token;
-# so collect all remaining parts manually:
 parts=(${DID//:/ })
-# parts[0]=did, [1]=web, [2]=HOST, [3]=PROJECT, [4..]=path segments
 if (( ${#parts[@]} < 4 )); then
   echo "Error: DID missing project segment: ${DID}" >&2; exit 1
 fi
@@ -61,6 +57,12 @@ PROJECT="${parts[3]}"
 PATH_SEGS=()
 for ((i=4; i<${#parts[@]}; i++)); do PATH_SEGS+=("${parts[$i]}"); done
 
+# Host must be *.github.io
+if [[ "${HOST_LC}" != *.github.io ]]; then
+  echo "❌ Host '${HOST_ORIG}' is not a github.io host. Exiting."
+  exit 1
+fi
+
 # Build URL path on your Veramo router, e.g. /GenerateDidWeb/device-4/did.json
 URL_PATH="${PROJECT}"
 if (( ${#PATH_SEGS[@]} > 0 )); then
@@ -68,11 +70,28 @@ if (( ${#PATH_SEGS[@]} > 0 )); then
 fi
 FETCH_URL="${SERVER_URL}/${URL_PATH}/did.json"
 
-# Local file placement inside the repo:
-# "create a folder or folders with the values after the project name"
-TARGET_DIR="${REPO_DIR}"
-if (( ${#PATH_SEGS[@]} > 0 )); then
-  TARGET_DIR="${REPO_DIR}/$(IFS='/'; echo "${PATH_SEGS[*]}")"
+# ------------ NEW: Trim PATH_SEGS that already exist in $PWD ------------
+# We remove leading PATH_SEGS that match the current directory, then its parent, etc.
+# Example: if PWD ends with ".../device-4" and PATH_SEGS=("device-4"), we end up with an empty target dir (".")
+trimmed_segs=("${PATH_SEGS[@]}")
+cwd="$PWD"
+while (( ${#trimmed_segs[@]} > 0 )); do
+  lastdir="$(basename "$cwd")"
+  if [[ "$lastdir" == "${trimmed_segs[0]}" ]]; then
+    # drop the matched head segment and move upward one directory
+    trimmed_segs=("${trimmed_segs[@]:1}")
+    cwd="$(dirname "$cwd")"
+  else
+    break
+  fi
+done
+
+# Local file placement:
+# "create a folder or folders with the values after the project name", minus what PWD already has
+if (( ${#trimmed_segs[@]} > 0 )); then
+  TARGET_DIR="$(IFS='/'; echo "${trimmed_segs[*]}")"
+else
+  TARGET_DIR="."   # nothing to create; we're already inside the last segment(s)
 fi
 TARGET_FILE="${TARGET_DIR}/did.json"
 
@@ -80,6 +99,7 @@ echo "DID:            ${DID}"
 echo "Host (orig/lc): ${HOST_ORIG} / ${HOST_LC}"
 echo "Project:        ${PROJECT}"
 echo "Path segs:      ${PATH_SEGS[*]:-<none>}"
+echo "Trimmed segs:   ${trimmed_segs[*]:-<none>}"
 echo "Fetch URL:      ${FETCH_URL}"
 echo "Target path:    ${TARGET_FILE}"
 echo
@@ -88,11 +108,8 @@ echo
 mkdir -p "${TARGET_DIR}"
 
 tmp="$(mktemp)"
-
-# -f: fail on HTTP error; -S: show errors; -s: silent progress
 curl -fsS -H "Host: ${HOST_ORIG}" -o "$tmp" "${FETCH_URL}"
 
-# choose a formatter
 if command -v jq >/dev/null 2>&1; then
   if jq -S . < "$tmp" > "${TARGET_FILE}.tmp"; then
     mv "${TARGET_FILE}.tmp" "${TARGET_FILE}"
@@ -114,13 +131,12 @@ else
 fi
 
 rm -f "$tmp"
-
 echo "Saved formatted JSON -> ${TARGET_FILE}"
 
 # Optional sanity: verify the 'id' inside did.json matches the DID (with lowercase host)
 if command -v jq >/dev/null 2>&1; then
   DOC_ID="$(jq -r '.id // empty' < "${TARGET_FILE}" || true)"
-  EXPECTED_ID="did:web:${HOST_LC}"
+  EXPECTED_ID="did:web:${HOST}"
   if (( ${#PATH_SEGS[@]} > 0 )); then
     EXPECTED_ID="${EXPECTED_ID}:${PROJECT}:$(IFS=':'; echo "${PATH_SEGS[*]}")"
   else
@@ -141,13 +157,59 @@ if [[ "${DRY_RUN}" == "true" ]]; then
   exit 0
 fi
 
-if [[ ! -d "${REPO_DIR}/.git" ]]; then
-  echo "Error: ${REPO_DIR} is not a git repo" >&2; exit 1
+# Ensure remote exists
+if ! git remote get-url "${GIT_REMOTE}" >/dev/null 2>&1; then
+  echo "❌ Remote '${GIT_REMOTE}' not found. Exiting."
+  exit 1
 fi
 
-git -C "${REPO_DIR}" checkout -B "${BRANCH}"
-git -C "${REPO_DIR}" add "${TARGET_FILE}"
-git -C "${REPO_DIR}" commit -m "${COMMIT_MSG}" || true   # allow empty (no changes)
-git -C "${REPO_DIR}" push -u origin "${BRANCH}"
+REMOTE_URL="$(git remote get-url "${GIT_REMOTE}")"
+echo "Git remote URL: ${REMOTE_URL}"
 
+# Expected GitHub username is the subdomain part (before .github.io)
+EXPECTED_USER="${HOST_LC%%.github.io}"
+
+# Parse GitHub remote URL → GH_USER / GH_REPO
+GH_USER=""
+GH_REPO=""
+
+# SSH form: git@github.com:User/Repo.git
+if [[ "${REMOTE_URL}" =~ ^git@github\.com:([^/]+)/([^/]+)(\.git)?$ ]]; then
+  GH_USER="${BASH_REMATCH[1]}"
+  GH_REPO="${BASH_REMATCH[2]}"
+# HTTPS form: https://github.com/User/Repo(.git)
+elif [[ "${REMOTE_URL}" =~ ^https://github\.com/([^/]+)/([^/]+)(\.git)?$ ]]; then
+  GH_USER="${BASH_REMATCH[1]}"
+  GH_REPO="${BASH_REMATCH[2]}"
+else
+  echo "❌ Remote '${GIT_REMOTE}' is not a GitHub SSH/HTTPS URL. Exiting."
+  exit 1
+fi
+
+# Normalize cases for comparison (GitHub usernames are case-insensitive)
+if [[ "${GH_USER,,}" != "${EXPECTED_USER,,}" ]]; then
+  echo "❌ GitHub username mismatch."
+  echo "    From host: ${EXPECTED_USER}"
+  echo "    From remote: ${GH_USER}"
+  exit 1
+fi
+
+# Strip any trailing .git from repo (already handled in regex, but double-safe)
+GH_REPO="${GH_REPO%.git}"
+
+# Project must equal repo name (case-insensitive compare is usually fine)
+if [[ "${GH_REPO,,}" != "${PROJECT,,}" ]]; then
+  echo "❌ Repo name mismatch."
+  echo "    Project (from DID): ${PROJECT}"
+  echo "    Repo (from remote): ${GH_REPO}"
+  exit 1
+fi
+
+echo "✅ Checks passed (host *.github.io, username '${GH_USER}', repo '${GH_REPO}')."
+
+# Safe to commit/push
+git checkout -B "${BRANCH}"
+git add "${TARGET_FILE}"
+git commit -m "${COMMIT_MSG}" || true   # allow empty commits
+# git push -u "${GIT_REMOTE}" "${BRANCH}"
 echo "✅ Pushed ${TARGET_FILE} to ${BRANCH}"
